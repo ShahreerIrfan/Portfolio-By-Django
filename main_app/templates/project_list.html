@@ -1,20 +1,44 @@
 {% extends "base.html" %}
 
 {% block body %}
-  <div class="container mt-5">
-    <h4>Project List</h4>
-    <div class="row">
-      {% for project in projects %}
-        <div class="col-md-4 mb-4">
-          <div class="card" style="width: 370px;">
-            <img class="project-thumbnail" src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
-            <div class="card-body">
-              <h5 class="card-title">{{ project.title }}</h5>
-              <a href="{% url 'project_detail' project.id %}" class="btn btn-primary">View Project</a>
-            </div>
+<div class="container mt-5">
+  <h4>Project List</h4>
+  <form method="GET" action="{% url 'project_list' %}">
+    <div class="form-group">
+      <label for="categorySelect">Select Category:</label>
+      <select class="form-control" id="categorySelect" name="category">
+        <option value="">All Categories</option>
+        <option value="E-commerce">E-commerce</option>
+        <option value="Blog site">Blog site</option>
+        <option value="Portfolio site">Portfolio site</option>
+        <option value="Tutorial site">Tutorial site</option>
+        <option value="LMS site">LMS site</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Filter</button>
+  </form>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for project in projects %}
+      <div class="col">
+        <div class="card h-100">
+          <img class="card-img-top project-thumbnail" src="{{ project.image.url }}" alt="{{ project.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{ project.description }}</p>
+            <a href="{% url 'project_detail' project.id %}" class="btn btn-primary">View Project</a>
           </div>
         </div>
-      {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
+    {% if projects|length == 0 %}
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <p class="card-text">No available projects in this category.</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   </div>
+</div>
 {% endblock %}

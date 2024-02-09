@@ -29,8 +29,6 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 def resume(request):
-    # Logic to serve the resume file, or generate it dynamically
-    # For simplicity, let's assume you have a static file for the resume
     return redirect('/path/to/your/resume.pdf')
 
 
@@ -46,9 +44,25 @@ def add_project(request):
         form = ProjectForm()
     return render(request, 'add_project.html', {'form': form})
 
+from django.shortcuts import render
+from .models import Project
+
 def project_list(request):
-    projects = Project.objects.all()
-    return render(request, 'project_list.html', {'projects': projects})
+    category = request.GET.get('category')
+    if category:
+        projects = Project.objects.filter(category=category)
+    else:
+        projects = Project.objects.all()
+    
+    context = {'projects': projects}
+    
+    if not projects and not category:
+        context['no_projects_message'] = "No available projects."
+    elif not projects and category:
+        context['no_projects_message'] = f"No available projects in the {category} category."
+    
+    return render(request, 'project_list.html', context)
+
 
 def project_detail(request, project_id):
     project = Project.objects.get(id=project_id)
