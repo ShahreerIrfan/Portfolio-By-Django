@@ -4,6 +4,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .forms import UserForm, ProfileForm
 from .models import Profile
+from .forms import ProjectForm
+from .models import Project
+
+def home(request):
+    return render(request,"index.html")
 
 def edit_profile(request):
     try:
@@ -27,3 +32,24 @@ def resume(request):
     # Logic to serve the resume file, or generate it dynamically
     # For simplicity, let's assume you have a static file for the resume
     return redirect('/path/to/your/resume.pdf')
+
+
+
+
+def add_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('project_list')
+    else:
+        form = ProjectForm()
+    return render(request, 'add_project.html', {'form': form})
+
+def project_list(request):
+    projects = Project.objects.all()
+    return render(request, 'project_list.html', {'projects': projects})
+
+def project_detail(request, project_id):
+    project = Project.objects.get(id=project_id)
+    return render(request, 'project_detail.html', {'project': project})

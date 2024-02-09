@@ -10,3 +10,11 @@ class Profile(models.Model):
     career_objective = models.TextField(blank=True)
     def __str__(self) -> str:
         return f"{self.user.first_name} {self.user.last_name}"
+    
+
+
+class Project(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    image = models.ImageField(upload_to='main_app/project_images/')
+    created_at = models.DateTimeField(auto_now_add=True)

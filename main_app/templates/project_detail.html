@@ -1,0 +1,23 @@
+
+
+{% extends "base.html" %}
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">{{ project.title }}</h2>
+            <p class="card-text">{{ project.description }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
