@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="display-4 text-center mb-5">Profile</h2>
+        {% if profile %}
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>{{ profile.user.get_full_name }}</h3>
+                    <p class="lead">{{ profile.bio }}</p>
+                    <p><strong>Career Objective:</strong> {{ profile.career_objective }}</p>
+                    <!-- Add other profile fields as needed -->
+                </div>
+                <div class="col-md-6">
+                    <div class="float-md-end">
+                        <img src="https://i.ibb.co/5M2hxTJ/profile.png" alt="Profile Image" class="img-fluid" style="max-width: 200px;">
+                    </div>
+                    <h3>Contact Information</h3>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-telephone"></i> +8801608351771</li>
+                        <li><i class="bi bi-envelope"></i> mdshahreerirfan@gmail.com</li>
+                        <!-- Add other contact information fields as needed -->
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Skills</h3>
+                    <ul class="list-unstyled">
+                        <li><strong>Expertise:</strong> Wordpress, Elementor, Jetpack all plugins, Django, MySql, MongoDB, C/C++, HTML, CSS</li>
+                        <li><strong>Comfortable:</strong> Python, Django REST framework, JavaScript, React, Bootstrap, Tailwind</li>
+                        <li><strong>Familiar:</strong> Java, Java FXML, Desktop Application, Photoshop, Illustrator</li>
+                        <!-- Add other skills fields as needed -->
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h3>Experience</h3>
+                    <p><strong>Web Developer:</strong> StratonOakland (Jan 2023 – Jul 2023)</p>
+                    <ul class="list-unstyled">
+                        <li>Developing company’s websites</li>
+                        <li>Maintained and updated websites</li>
+                        <li>Working with Wordpress, Elementor, Elementor Pro, and Crocoblock</li>
+                    </ul>
+                    <!-- Add other experience fields as needed -->
+                </div>
+            </div>
+            <!-- Add other sections for Projects, Education, Languages, Additional Course, etc. -->
+        {% else %}
+            <p>No profile found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

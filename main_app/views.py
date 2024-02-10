@@ -1,4 +1,3 @@
-# main_app/views.py
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -6,7 +5,9 @@ from .forms import UserForm, ProfileForm
 from .models import Profile
 from .forms import ProjectForm
 from .models import Project
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 def home(request):
     return render(request,"index.html")
 
@@ -67,3 +68,14 @@ def project_list(request):
 def project_detail(request, project_id):
     project = Project.objects.get(id=project_id)
     return render(request, 'project_detail.html', {'project': project})
+
+
+
+
+def profile_view(request):
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = None
+    
+    return render(request, 'profile.html', {'profile': profile})
