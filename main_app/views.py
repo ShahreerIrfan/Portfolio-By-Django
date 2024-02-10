@@ -72,6 +72,7 @@ def project_detail(request, project_id):
 
 
 
+@login_required(login_url='login')  # Redirect to 'login' page if not authenticated
 def profile_view(request):
     try:
         profile = request.user.profile
